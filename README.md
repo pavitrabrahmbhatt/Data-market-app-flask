@@ -23,6 +23,12 @@ As a seller, I want to see a box where I can input information for buyers about 
 
 As a a seller, I want to see a box where I can upload a link to my dataset, so that I can complete the process of placing my dataset in the marketplace.
 
+## EDIT DATA SET TO BE SOLD
+
+As a seller, I want to see a box with fields that display the current details of the data set I have up for sale, so I can see what data I want to change.
+
+As a seller, I want to be able to input details about the dataset and/or upload a new version of (or different) data set, so that I can update the product I am selling. 
+
 ## DATA SETS
 
 As a user, I want to see the available data sets in list view showing the industry and title of the set.
@@ -38,6 +44,8 @@ As a user, I want to see a table layout of data including categories and values.
 ## PROFILE PAGE
 
 As a user, I want to see data sets I have purchased (including industry name, title, and a link to download) as well as data sets I have up for sale (if any) and a link to view them.
+
+As a user, I want to see a link to each data set I have up for sale and edit and delete links, so I can edit the data set or remove it from the marketplace.
 
 ## PROFILE EDIT
 
