@@ -79,7 +79,7 @@ def get_one_user(id):
     return jsonify(data=model_to_dict(user), status={"code": 200, "message": "Success"})
 
 
-#profile page
+#profile
 @user.route('/<id>', methods=["GET"])
 def get_user_profile(id):
     try:

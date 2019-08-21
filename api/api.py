@@ -17,7 +17,7 @@ def get_all_data_markets():
     except models.DoesNotExist:
         return jsonify(data={}, status={"code": 401, "message": " There was an error getting the resource"})
 
-#
+# data sets list
 @api.route('/datalist', methods=["GET"])
 def get_all_data_sets_by_industry():
     try:
