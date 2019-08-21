@@ -1,12 +1,8 @@
 import models
 
-import os
-import sys
-import secrets
-
-
 from flask import Blueprint, request, jsonify, url_for, send_file
 from playhouse.shortcuts import model_to_dict
+
 # first arg is the blueprint name
 # second is import name
 # 3rd what we prefix to the url
@@ -24,9 +20,6 @@ def get_all_data_markets():
 # new data set create
 @api.route('/data_id', methods=["POST"])
 def create_data_sets():
-    ## request object hold the info from the request
-    # request.form
-    # request.files
     payload = request.get_json()
     print(payload, 'payload', type(payload), 'type')
     product = models.Product.create(**payload, user=1)
@@ -48,7 +41,6 @@ def get_one_user(id):
     # note we have to pass the variable name (param)
     # to the view the function
     user = models.User.get_by_id(id) # peewee query
-
     return jsonify(data=model_to_dict(user), status={"code": 200, "message": "Success"})
 
 
