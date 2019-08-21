@@ -18,7 +18,7 @@ def get_all_data_markets():
         return jsonify(data={}, status={"code": 401, "message": " There was an error getting the resource"})
 
 # new data set create
-@api.route('/data_id', methods=["POST"])
+@api.route('/sell', methods=["POST"])
 def create_data_sets():
     payload = request.get_json()
     print(payload, 'payload', type(payload), 'type')
