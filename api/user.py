@@ -82,16 +82,20 @@ def get_one_user(id):
 #profile
 @user.route('/<id>', methods=["GET"])
 def get_user_profile(id):
-    # try:
-        name = models.User.get_by_id(id).full_name
 
+    # try:
+
+        name = models.User.get_by_id(id).full_name
+        print(models.Order.user_id.id)
         orders = [model_to_dict(order) for order in models.Order.select().where(models.Order.user_id==id).order_by(models.Order.created_at.desc())]
 
         products = [model_to_dict(product) for product in models.Product.select().where(models.Product.user_id==id).order_by(models.Product.industry)]
 
         return jsonify(all_orders=orders, user_name=name, all_products=products, status={"code": 200, "message": "Success"})
-    # except models.DoesNotExist:
-        # return jsonify(data={}, status={"code": 401, "message": " There was an error getting the resource"})
+
+    #except models.DoesNotExist:
+        #return jsonify(data={}, status={"code": 401, "message": " There was an error getting the resource"})
+
 
 
 # Update user

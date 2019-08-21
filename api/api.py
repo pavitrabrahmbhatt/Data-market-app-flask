@@ -67,6 +67,13 @@ def update_one_data_set(id):
 
     return jsonify(data=model_to_dict(updated_data_set), status={"code": 200, "message": "resource updated successfully"})
 
+@api.route('/<id>', methods=["Delete"])
+def delete_data_set(id):
+    specific_product_id = 4
+    query = models.Product.delete().where(models.Product.id == specific_product_id) 
+    query.execute() 
+    return jsonify(data='resources successfully deleted', status={"code": 200, "message": "Resource deleted"})
+
 
 
 
