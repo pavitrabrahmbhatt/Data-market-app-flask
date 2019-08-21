@@ -18,7 +18,7 @@ api = Blueprint('api', 'api', url_prefix="/data")
 @api.route('/', methods=["GET"])
 def get_all_data_markets():
     try:
-        dataMarket = [model_to_dict(product) for product in models.Product.select()]
+        products = [model_to_dict(product) for product in models.Product.select()]
         return jsonify(data=products, status={"code": 200, "message": "Success"})
     except models.DoesNotExist:
         return jsonify(data={}, status={"code": 401, "message": " There was an error getting the resource"})
@@ -31,20 +31,18 @@ def create_data_sets():
     # request.files
     payload = request.get_json()
     print(payload, 'payload', type(payload), 'type')
-    # dog = models.Dog.create(name=payload["name"], owner=payload['owner'], breed=payload['breed'])
-    # both these line accomplish the same exact task
-    data = models.Product.create(**payload, user=1)
-    print(datamarket.__dict__, ' looking inside the data Model', type(data))
-    data_dict = model_to_dict(datamarket)
-    return jsonify(data=data_dict, status={"code": 201, "message": "Success"})
+    product = models.Product.create(**payload, user=1)
+    print(product.__dict__, ' looking inside the data Model', type(product))
+    product_dict = model_to_dict(product)
+    return jsonify(data=product_dict, status={"code": 201, "message": "Success"})
 
 #purchasing page 
 @api.route('/<id>', methods=["GET"])
 def get_one_data_set(id):
     # note we have to pass the variable name (param)
     # to the view the function
-    data = models.Product.get_by_id(id) # peewee query
-    return jsonify(data=model_to_dict(data), status={"code": 200, "message": "Success"})
+    product = models.Product.get_by_id(id) # peewee query
+    return jsonify(data=model_to_dict(product), status={"code": 200, "message": "Success"})
 
 # user profile page
 @api.route('/<id>', methods=["GET"])
