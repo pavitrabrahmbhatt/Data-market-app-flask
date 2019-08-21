@@ -5,7 +5,7 @@ import models
 
 from api.api import api
 from api.user import user
-from api.api import api
+from api.order import order
 
 DEBUG = True
 PORT = 8000
@@ -29,11 +29,13 @@ def load_user(userid):
 
 CORS(api, origins=['http://localhost:3000'], supports_credentials=True)
 CORS(user, origins=['http://localhost:3000'], supports_credentials=True)
+CORS(order, origins=['http://localhost:3000'], supports_credentials=True)
 
 
 
 app.register_blueprint(api)
 app.register_blueprint(user)
+app.register_blueprint(order)
 
 @app.before_request
 def before_request():
