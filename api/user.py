@@ -71,12 +71,28 @@ def register():
     return jsonify(data=user_dict, status={"code": 201, "message": "Success"})
 
 
-# User profile page
+# User account details
 @user.route('/<id>/account', methods=["GET"])
 def get_one_user(id):
 
     user = models.User.get_by_id(id) # peewee query
     return jsonify(data=model_to_dict(user), status={"code": 200, "message": "Success"})
+
+
+#profile page
+@user.route('/<id>', methods=["GET"])
+def get_user_profile(id):
+    try:
+        name = models.User.get_by_id(id).full_name
+
+        orders = [model_to_dict(order) for order in models.Order.select().where(models.Order.user_id==id).order_by(models.Order.created_at.desc())]
+
+        products = [model_to_dict(product) for product in models.Product.select().where(models.Product.user_id==id).order_by(models.Product.industry)]
+
+        return jsonify(all_orders=orders, user_name=name, all_products=products, status={"code": 200, "message": "Success"})
+    except models.DoesNotExist:
+        return jsonify(data={}, status={"code": 401, "message": " There was an error getting the resource"})
+
 
 # Update user
 @user.route('/<id>/account', methods=["PUT"])
@@ -92,3 +108,18 @@ def update_one_user(id):
     updated_user = models.User.get_by_id(id)
 
     return jsonify(data=model_to_dict(updated_user), status={"code": 200, "message": "resource updated successfully"})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
