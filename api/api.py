@@ -12,7 +12,8 @@ api = Blueprint('api', 'api', url_prefix="/data")
 @api.route('/', methods=["GET"])
 def get_all_data_markets():
     try:
-        products = [model_to_dict(product) for product in models.Product.select().order_by(models.Product.created_at.desc())]
+        products = [model_to_dict(product) for product in models.Product.select().
+        where(models.Product.status==True).order_by(models.Product.created_at.desc())]
         return jsonify(data=products, status={"code": 200, "message": "Success"})
     except models.DoesNotExist:
         return jsonify(data={}, status={"code": 401, "message": " There was an error getting the resource"})
@@ -21,7 +22,7 @@ def get_all_data_markets():
 @api.route('/datalist', methods=["GET"])
 def get_all_data_sets_by_industry():
     try:
-        products = [model_to_dict(product) for product in models.Product.select().order_by(models.Product.industry)]
+        products = [model_to_dict(product) for product in models.Product.select().where(models.Product.status==True).order_by(models.Product.industry)]
         #query = models.Product.select(*).order_by(models.Product.industry)
 
         #query.execute()
