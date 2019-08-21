@@ -10,7 +10,7 @@ PORT = 8000
 
 login_manager = LoginManager()
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path="", static_folder="static")
 
 app.secret_key = 'RLAKJDRANDOM STRING' # app.use(session({secret_key: 'sd...blah blah blah'}))
 login_manager.init_app(app)
@@ -54,4 +54,4 @@ def index():
 # Run the app when the program starts
 if __name__ == '__main__':
   models.initialize()
-  app.run(debug=DEBUG, port=PORT)
+  app.run(debug=DEBUG, port=PORT, host='0.0.0.0')

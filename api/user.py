@@ -14,25 +14,23 @@ from playhouse.shortcuts import model_to_dict
 
 user = Blueprint('users', 'user', url_prefix='/user')
 
+
 @user.route('/register', methods=["POST"])
 def register():
 
-  print(request)
+  # print(request, "REQUEST IS HERE")
+  print(request.form, "REQUEST.form IS HERE")
 
-  pay_file = request.files
 
-  payload = request.form.to_dict()
-
-  dict_file = pay_file.to_dict()
+  payload = request.get_json()
 
   print(payload)
-  print(dict_file)
+  # print(payload.get('email'))
 
-  payload['email'].lower()
-
+  return jsonify(payload)
   try:
 
-    models.User.get(models.User.email == payload['email'])
+    models.User.get(models.User.email == payload.get('email'))
 
     return jsonify(data={}, status={"code": 401, "message": "A user with that name exists"})
 
