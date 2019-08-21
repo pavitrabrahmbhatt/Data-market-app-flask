@@ -1,13 +1,36 @@
 from flask import Flask, g
-
+from flask_cors import CORS
+from flask_login import LoginManager
 import models
+
+from api.user import user
 
 DEBUG = True
 PORT = 8000
 
-# Initialize an instance of the Flask class.
-# This starts the website!
-app = Flask(__name__, static_url_path="", static_folder="static")
+login_manager = LoginManager()
+
+app = Flask(__name__)
+
+app.secret_key = 'RLAKJDRANDOM STRING' # app.use(session({secret_key: 'sd...blah blah blah'}))
+login_manager.init_app(app)
+
+
+
+@login_manager.user_loader
+def load_user(userid):
+  try:
+    return models.User.get(models.User.id == userid)
+  except models.DoesNotExist:
+    return None
+
+
+CORS(user, origins=['http://localhost:3000'], supports_credentials=True)
+
+
+
+app.register_blueprint(user)
+
 
 @app.before_request
 def before_request():
@@ -23,12 +46,12 @@ def after_request(response):
     return response
 
 
-# The default URL ends in / ("my-website.com/").
+# The default URL ends in / 
 @app.route('/')
 def index():
     return 'SERVER IS WORKING'
 
-# Run the app when the program starts!
+# Run the app when the program starts
 if __name__ == '__main__':
   models.initialize()
   app.run(debug=DEBUG, port=PORT)
