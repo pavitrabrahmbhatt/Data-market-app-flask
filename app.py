@@ -5,7 +5,6 @@ import models
 
 from api.api import api
 from api.user import user
-from api.api import api
 
 DEBUG = True
 PORT = 8000

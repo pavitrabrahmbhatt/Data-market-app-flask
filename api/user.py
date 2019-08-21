@@ -18,16 +18,11 @@ user = Blueprint('users', 'user', url_prefix='/user')
 @user.route('/register', methods=["POST"])
 def register():
 
-  # print(request, "REQUEST IS HERE")
-  print(request.form, "REQUEST.form IS HERE")
-
-
   payload = request.get_json()
 
   print(payload)
   # print(payload.get('email'))
 
-  return jsonify(payload)
   try:
 
     models.User.get(models.User.email == payload.get('email'))
@@ -36,16 +31,22 @@ def register():
 
   except models.DoesNotExist:
 
+    print("ok to create")
+
     payload['password'] = generate_password_hash(payload['password'])
 
     user = models.User.create(**payload)
 
     login_user(user)
 
+    print("user")
+    print(user)
+
     user_dict = model_to_dict(user)
 
     del user_dict['password']
 
+    print("user_dict")
     print(user_dict)
 
     return jsonify(data=user_dict, status={"code": 201, "message": "Success"})
