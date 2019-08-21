@@ -4,8 +4,8 @@ from flask_login import LoginManager
 import models
 
 from api.api import api
-from api.user import user
 from api.order import order
+from api.user import user
 
 DEBUG = True
 PORT = 8000
