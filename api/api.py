@@ -68,6 +68,7 @@ def update_one_data_set(id):
 
     return jsonify(data=model_to_dict(updated_data_set), status={"code": 200, "message": "resource updated successfully"})
 
+# remove data set from marketplace
 @api.route('/<id>', methods=["Delete"])
 def delete_data_set(id):
     specific_product_id = 4
