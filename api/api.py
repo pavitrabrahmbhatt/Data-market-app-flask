@@ -12,8 +12,10 @@ api = Blueprint('api', 'api', url_prefix="/data")
 @api.route('/', methods=["GET"])
 def get_all_data_markets():
     try:
+        print("INSIDE THE INDEX API ROUTE")
         products = [model_to_dict(product) for product in models.Product.select().
         where(models.Product.status==True).order_by(models.Product.created_at.desc())]
+        print(products)
         return jsonify(data=products, status={"code": 200, "message": "Success"})
     except models.DoesNotExist:
         return jsonify(data={}, status={"code": 401, "message": " There was an error getting the resource"})
@@ -68,10 +70,11 @@ def update_one_data_set(id):
 
     return jsonify(data=model_to_dict(updated_data_set), status={"code": 200, "message": "resource updated successfully"})
 
+
 # remove data set from marketplace
 @api.route('/<id>', methods=["Delete"])
 def delete_data_set(id):
-    specific_product_id = 4
+    specific_product_id = id
     query = models.Product.delete().where(models.Product.id == specific_product_id) 
     query.execute() 
     return jsonify(data='resources successfully deleted', status={"code": 200, "message": "Resource deleted"})
