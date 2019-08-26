@@ -3,6 +3,9 @@ import models
 from flask import Blueprint, request, jsonify, url_for, send_file
 from playhouse.shortcuts import model_to_dict
 
+
+from flask_login import login_user, logout_user, current_user, login_required
+
 # first arg is the blueprint name
 # second is import name
 # 3rd what we prefix to the url
@@ -10,7 +13,9 @@ api = Blueprint('api', 'api', url_prefix="/data")
 
 # index page
 @api.route('/', methods=["GET"])
+@login_required
 def get_all_data_markets():
+    print(current_user)
     try:
         print("INSIDE THE INDEX API ROUTE")
         products = [model_to_dict(product) for product in models.Product.select().
