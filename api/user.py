@@ -8,12 +8,13 @@ import secrets
 from flask import Blueprint, request, jsonify, url_for, send_file
 
 from flask_bcrypt import generate_password_hash, check_password_hash
-from flask_login import login_user, current_user
+from flask_login import login_user, logout_user, current_user
 from playhouse.shortcuts import model_to_dict
 
 
 user = Blueprint('users', 'user', url_prefix='/user')
 
+# Log user in
 @user.route('/login', methods=["POST"])
 def login():
     payload = request.get_json()
@@ -33,6 +34,12 @@ def login():
             return jsonify(data={}, status={"code": 401, "message": "Username or Password is incorrect"})
     except models.DoesNotExist:
         return jsonify(data={}, status={"code": 401, "message": "Username or Password is incorrect"})
+
+# Log user out
+@user.route('/logout', methods=["GET"])
+def logout():
+  logout_user()
+  return jsonify(data={}, status={"code": 200, "message": "User successfully logged out"}) # NEED TO MAKE THIS A REDIRECT AFTER WE SETUP REACT
 
 
 @user.route('/register', methods=["POST"])

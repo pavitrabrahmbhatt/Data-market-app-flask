@@ -22,7 +22,8 @@ class Product(Model):
     industry = CharField()
     description = TextField()
     territory = CharField()
-    status = BooleanField(null=False)
+    status = BooleanField(default=True)
+    source = TextField()
 
     class Meta:
         database = DATABASE

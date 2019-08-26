@@ -21,6 +21,8 @@ def create_order(id):
     print(user, "THIS IS USER")
     #order = models.Order.create(**payload, user=1)
     order = models.Order.create(user_id=user, product_id=id)
+    query = models.Product.update(status=False).where(models.Product.id==id)
+    query.execute()
     print(order.__dict__, ' looking inside the data Model', type(order))
     order_dict = model_to_dict(order)
     return jsonify(data=order_dict, status={"code": 201, "message": "Success"})
