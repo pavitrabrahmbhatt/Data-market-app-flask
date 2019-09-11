@@ -4,6 +4,7 @@ import datetime
 
 DATABASE = SqliteDatabase('datamarket.sqlite')
 
+# User Model
 class User(UserMixin, Model): 
     full_name = CharField()
     email = CharField(unique=True)
@@ -14,6 +15,7 @@ class User(UserMixin, Model):
     class Meta:
         database = DATABASE
 
+# Data set model
 class Product(Model):
     name = CharField()
     price = IntegerField()
@@ -27,6 +29,8 @@ class Product(Model):
 
     class Meta:
         database = DATABASE
+
+#Order Model
 
 class Order(Model): 
     user_id = ForeignKeyField(User, backref='orders', null=False)

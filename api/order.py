@@ -13,6 +13,7 @@ from playhouse.shortcuts import model_to_dict
 
 order = Blueprint('order', 'order', url_prefix="/order")
 
+# create a new order
 @order.route('/<id>', methods=["POST"])
 def create_order(id):
 
